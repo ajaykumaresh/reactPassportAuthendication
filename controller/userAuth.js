@@ -13,29 +13,6 @@ exports.getSub = (req, res) => {
     }
 };
 
-exports.saveRecords = async (req, res) => {
-
-    req.body.password = await bcrypt.hash(req.body.password, security.Round)
-    req.body.date = new Date();
-    let user = new userRole(req.body);
-    user
-        .save()
-        .then(doc => {
-            console.log(doc);
-            res.json({
-                success: true,
-                data: doc
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).send({
-                error: err
-            });
-        });
-
-};
-
 exports.signup = (req, res, next) => {
     passport.authenticate('login', (error, user, info) => {
         if (error) {
